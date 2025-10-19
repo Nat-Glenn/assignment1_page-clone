@@ -111,36 +111,42 @@ const ProfilePage = () => {
         <Feather name="plus-square" size={24} color="#000" />
       </View>
 
-      {/* Non scrolling sectionn*/}
-      <View style={styles.topSection}>
-        <View style={styles.headerRow}>
-          <LinearGradient colors={['#ff4bb2', '#ffa700']} style={styles.storyRingOuter}>
-            <View style={styles.storyRingInner}>
-              <Image style={styles.profilePicture} source={{ uri: avatar?.image ?? '' }} />
-            </View>
-          </LinearGradient>
-
-          {/* Stats */}
-          <View style={styles.infoRow}>
-            <View style={styles.infoItem}>
-              <Text style={styles.infoCount}>53</Text>
-              <Text style={styles.infoLabel}>Posts</Text>
-            </View>
-            <View style={styles.infoItem}>
-              <Text style={styles.infoCount}>12</Text>
-              <Text style={styles.infoLabel}>Members</Text>
-            </View>
-            <View style={styles.infoItem}>
-              <Text style={styles.infoCount}>1</Text>
-              <Text style={styles.infoLabel}>Admins</Text>
-            </View>
-          </View>
+    {/* Profile Info Section */}
+    <View style={styles.profileHeader}>
+    {/* LEFT: Profile picture + bio */}
+      <View style={styles.leftColumn}>
+        <View style={styles.profilePictureRing}>
+          <Image
+            style={styles.profilePicture}
+            source={{ uri: " " }}
+          />
         </View>
+        
+        {/* Profile info */}
+         <View style={styles.rightColumn}>
+          <View style={styles.infoRow}>
+          <View style={styles.infoItem}>
+            <Text style={styles.infoCount}>150</Text>
+            <Text style={styles.infoLabel}>Posts</Text>
+          </View>
+          <View style={styles.infoItem}>
+            <Text style={styles.infoCount}>12</Text>
+            <Text style={styles.infoLabel}>Members</Text>
+          </View>
+          <View style={styles.infoItem}>
+            <Text style={styles.infoCount}>1</Text>
+            <Text style={styles.infoLabel}>Admins</Text>
+          </View>
+      </View>
+    </View>
+</View>
 
         {/* Bio */}
         <View style={styles.bioSection}>
           <Text style={styles.groupName}>OOTD Everyday</Text>
           <Text style={styles.bioLine2}>Fit check!👕</Text>
+          <Text style={styles.bioLine3}>You know we will hype you up</Text>
+          <Text style={styles.bioLine3}>You know we will hype you up.</Text>
           <Text style={styles.bioLine3}>You know we'll hype you up.</Text>
         </View>
 
@@ -150,6 +156,11 @@ const ProfilePage = () => {
         </TouchableOpacity>
       </View>
 
+      {/* Member button */}
+      <TouchableOpacity style={styles.memberButton}>
+        <Text style={styles.memberButtonText}>Member⮟</Text>
+      </TouchableOpacity>
+      
       {/* Grid Scroll */}
       <ScrollView
         style={styles.gridScroll}
@@ -203,6 +214,17 @@ const styles = StyleSheet.create({
     borderColor: '#e5e5e5',
   },
 
+  leftColumn: {
+    alignItems: 'flex-start',
+  },
+
+  rightColumn: {
+    flex: 1,
+    justifyContent: 'center',
+    marginLeft: 30,
+    marginTop: 10,
+  },
+
   /* Top bar */
   header: {
     height: 56,
@@ -229,6 +251,75 @@ const styles = StyleSheet.create({
   profilePicture: { flex: 1, borderRadius: 38 },
 
 
+  profileHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    flexDirection: 'row',          
+    alignItems: 'center',
+  },
+
+  profilePictureRing: {
+    width: 84,
+    height: 84,
+    borderRadius: 42,
+    padding: 3,
+    backgroundColor: '#eeeeeeff',
+    marginRight: 24,
+  },
+
+  profilePicture: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 42,
+    borderColor: '#fff',
+    borderWidth: 3,
+  },
+
+  infoRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flex: 1,
+    marginLeft: 12,                
+    marginTop: 0,  
+  },
+
+  infoItem: {
+    alignItems: 'center',
+  },
+
+  infoCount: {
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+
+  infoLabel: {
+    fontSize: 12,
+    color: '#8e8e8e',
+  },
+
+  bioSection: {
+    marginTop: 70,
+    paddingLeft: 16,
+  },
+
+  groupName: {
+    fontWeight: 'bold',
+    fontSize: 14,
+  },
+
+  bioLine2: {
+    fontSize: 13,
+    marginTop: 2,
+  },
+
+  bioLine3: {
+    fontSize: 13,
+    marginTop: 2,
+  },
   infoRow: { flex: 1, flexDirection: 'row', justifyContent: 'space-around' },
   infoItem: { alignItems: 'center', marginHorizontal: 16},
   infoCount: { fontWeight: '700', fontSize: 18 },
