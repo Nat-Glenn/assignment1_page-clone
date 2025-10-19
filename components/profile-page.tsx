@@ -112,14 +112,14 @@ const onAlert = () => Alert.alert("Alert was pressed! ")
         {/* Bio */}
         <View style={styles.bioSection}>
           <Text style={styles.groupName}>OOTD Everyday</Text>
-          <Text style={styles.bioLine2}>Fit check!</Text>
+          <Text style={styles.bioLine2}>Fit check!👕</Text>
           <Text style={styles.bioLine3}>You know we will hype you up</Text>
         </View>
       </View>
 
       {/* Member button */}
       <TouchableOpacity style={styles.memberButton}>
-        <Text style={styles.memberButtonText}>Member</Text>
+        <Text style={styles.memberButtonText}>Member⮟</Text>
       </TouchableOpacity>
       
     </View>
@@ -180,15 +180,17 @@ const styles = StyleSheet.create({
   profileHeader: {
     paddingHorizontal: 16,
     paddingTop: 16,
+    flexDirection: 'row',          
+    alignItems: 'center',
   },
 
   profilePictureRing: {
-    alignSelf: 'flex-start',
     width: 84,
     height: 84,
     borderRadius: 42,
     padding: 3,
     backgroundColor: '#eeeeeeff',
+    marginRight: 24,
   },
 
   profilePicture: {
@@ -202,8 +204,10 @@ const styles = StyleSheet.create({
   infoRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '70%',
-    marginTop: 12,
+    alignItems: 'center',
+    flex: 1,
+    marginLeft: 12,                
+    marginTop: 0,  
   },
 
   infoItem: {
@@ -221,7 +225,8 @@ const styles = StyleSheet.create({
   },
 
   bioSection: {
-    marginTop: 12,
+    marginTop: 70,
+    paddingLeft: 16,
   },
 
   groupName: {
