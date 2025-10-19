@@ -85,16 +85,20 @@ const onAlert = () => Alert.alert("Alert was pressed! ")
         <Text style ={styles.plusIcon}>＋</Text>
       </View>
 
-      {/* Profile Info Section */}
-      <View style={styles.profileHeader}>
+    {/* Profile Info Section */}
+    <View style={styles.profileHeader}>
+    {/* LEFT: Profile picture + bio */}
+      <View style={styles.leftColumn}>
         <View style={styles.profilePictureRing}>
           <Image
             style={styles.profilePicture}
             source={{ uri: " " }}
           />
         </View>
+        
         {/* Profile info */}
-        <View style = {styles.infoRow}>
+         <View style={styles.rightColumn}>
+          <View style={styles.infoRow}>
           <View style={styles.infoItem}>
             <Text style={styles.infoCount}>150</Text>
             <Text style={styles.infoLabel}>Posts</Text>
@@ -107,13 +111,16 @@ const onAlert = () => Alert.alert("Alert was pressed! ")
             <Text style={styles.infoCount}>1</Text>
             <Text style={styles.infoLabel}>Admins</Text>
           </View>
-        </View>
+      </View>
+    </View>
+</View>
 
         {/* Bio */}
         <View style={styles.bioSection}>
           <Text style={styles.groupName}>OOTD Everyday</Text>
           <Text style={styles.bioLine2}>Fit check!👕</Text>
           <Text style={styles.bioLine3}>You know we will hype you up</Text>
+          <Text style={styles.bioLine3}>You know we will hype you up.</Text>
         </View>
       </View>
 
@@ -133,6 +140,17 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     paddingTop: Platform.OS !== "ios" ? StatusBar.currentHeight ?? 0 : 0,
+  },
+
+  leftColumn: {
+    alignItems: 'flex-start',
+  },
+
+  rightColumn: {
+    flex: 1,
+    justifyContent: 'center',
+    marginLeft: 30, // gives spacing between left and right
+    marginTop: 10,
   },
 
   header: {
@@ -178,6 +196,9 @@ const styles = StyleSheet.create({
   },
 
   profileHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
     paddingHorizontal: 16,
     paddingTop: 16,
     flexDirection: 'row',          
