@@ -136,13 +136,13 @@ const ProfilePage = () => {
         {/* Bio */}
         <View style={styles.bioSection}>
           <Text style={styles.groupName}>OOTD Everyday</Text>
-          <Text style={styles.bioLine2}>Fit check!</Text>
+          <Text style={styles.bioLine2}>Fit check!👕</Text>
           <Text style={styles.bioLine3}>You know we'll hype you up.</Text>
         </View>
 
         {/* Member button */}
         <TouchableOpacity style={styles.memberButton}>
-          <Text style={styles.memberButtonText}>Member</Text>
+          <Text style={styles.memberButtonText}>Member⮟</Text>
         </TouchableOpacity>
       </View>
 
