@@ -86,49 +86,50 @@ const posts: Post[] = [
     },
 ]
 
-const bar_height = 68
-
+const hair = StyleSheet.hairlineWidth
 
 const ProfilePage = () => {
-const onAlert = () => Alert.alert("Alert Button Pressed")
-const avatar = posts.find(p => p.id === "1");
-const gridPosts = posts.filter(p => p.id !== "1").slice(0,12);
+  const onAlert = () => Alert.alert('Alert Button pressed')
+
+  const avatar = posts.find(p => p.id === '1')
+  // Render twelve posts (4 rows) – change to .slice(0, 9) for 3×3, or remove slice to show all
+  const gridPosts = posts.filter(p => p.id !== '1').slice(0, 12)
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, Platform.OS === 'web' && styles.webPhone]}>
       {/* Top Bar */}
       <View style={styles.header}>
-          <Ionicons name="chevron-back" size={22} style={styles.iconText} />
+        <Text style={styles.iconText}>‹</Text>
         <View style={styles.headerTitleContainer}>
           <Text style={styles.headerTitle}>Group Profile</Text>
           <Text style={styles.headerSubTitle}>ootd_everyday</Text>
         </View>
-        <Ionicons name="add-circle-outline" size={22}/>
+        <Text style={styles.plusIcon}>＋</Text>
       </View>
 
-      {/* Profile Info Section */}
-      <View style={styles.profileHeader}>
-        <LinearGradient colors={['#ff4bb2', '#ffa700']}
-        style={styles.storyRingOuter}>
-          <View style={styles.storyRingInner}>
-            <Image 
-            style={styles.profilePicture}
-            source={{ uri: avatar?.image ?? ''}} />
-          </View>
-        </LinearGradient>
-        {/* Profile info */}
-        <View style = {styles.infoRow}>
-          <View style={styles.infoItem}>
-            <Text style={styles.infoCount}>53</Text>
-            <Text style={styles.infoLabel}>Posts</Text>
-          </View>
-          <View style={styles.infoItem}>
-            <Text style={styles.infoCount}>12</Text>
-            <Text style={styles.infoLabel}>Members</Text>
-          </View>
-          <View style={styles.infoItem}>
-            <Text style={styles.infoCount}>1</Text>
-            <Text style={styles.infoLabel}>Admins</Text>
+      {/* Non scrolling sectionn*/}
+      <View style={styles.topSection}>
+        <View style={styles.headerRow}>
+          <LinearGradient colors={['#ff4bb2', '#ffa700']} style={styles.storyRingOuter}>
+            <View style={styles.storyRingInner}>
+              <Image style={styles.profilePicture} source={{ uri: avatar?.image ?? '' }} />
+            </View>
+          </LinearGradient>
+
+          {/* Stats */}
+          <View style={styles.infoRow}>
+            <View style={styles.infoItem}>
+              <Text style={styles.infoCount}>53</Text>
+              <Text style={styles.infoLabel}>Posts</Text>
+            </View>
+            <View style={styles.infoItem}>
+              <Text style={styles.infoCount}>12</Text>
+              <Text style={styles.infoLabel}>Members</Text>
+            </View>
+            <View style={styles.infoItem}>
+              <Text style={styles.infoCount}>1</Text>
+              <Text style={styles.infoLabel}>Admins</Text>
+            </View>
           </View>
         </View>
 
@@ -136,166 +137,95 @@ const gridPosts = posts.filter(p => p.id !== "1").slice(0,12);
         <View style={styles.bioSection}>
           <Text style={styles.groupName}>OOTD Everyday</Text>
           <Text style={styles.bioLine2}>Fit check!</Text>
-          <Text style={styles.bioLine3}>You know we will hype you up</Text>
+          <Text style={styles.bioLine3}>You know we'll hype you up.</Text>
         </View>
+
+        {/* Member button */}
+        <TouchableOpacity style={styles.memberButton}>
+          <Text style={styles.memberButtonText}>Member</Text>
+        </TouchableOpacity>
       </View>
 
-      {/* Member button */}
-      <TouchableOpacity style={styles.memberButton}>
-        <Text style={styles.memberButtonText}>Member</Text>
-      </TouchableOpacity>
+      {/* Grid Scroll */}
+      <ScrollView
+        style={styles.gridScroll}
+        contentContainerStyle={styles.gridScrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Grid */}
+        <View style={styles.grid}>
+          {gridPosts.map(item => (
+            <View key={item.id} style={styles.gridItem}>
+              <Image source={{ uri: item.image }} style={styles.gridImage} />
+            </View>
+          ))}
+        </View>
 
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-      {/* 3 by 4 image grid */}
-      <View style={styles.grid}>
-        {gridPosts.map(item => (
-          <View key={item.id} style={styles.gridItem}>
-            <Image source={{uri: item.image }} style={styles.gridImage}/>
-          </View>
-        ))}
-      </View>
-
-        {/* Alert Button */}
+        {/* Alert */}
         <TouchableOpacity style={styles.alertButton} onPress={onAlert}>
           <Text style={styles.alertButtonText}>Alert</Text>
         </TouchableOpacity>
       </ScrollView>
-      
     </View>
   )
 }
 
 export default ProfilePage
 
-const hair = StyleSheet.hairlineWidth
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingTop: Platform.OS !== "ios" ? StatusBar.currentHeight ?? 0 : 0,
+    paddingTop: Platform.OS !== 'ios' ? StatusBar.currentHeight ?? 0 : 0,
+  },
+  webPhone: {
+    maxWidth: 390,
+    alignSelf: 'center',
+    backgroundColor: '#fff',
+    borderLeftWidth: hair,
+    borderRightWidth: hair,
+    borderColor: '#e5e5e5',
   },
 
+  /* Top bar */
   header: {
+    height: 56,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 12,
-    paddingVertical: 10,
     borderBottomWidth: hair,
     borderBottomColor: '#ddd',
-    backgroundColor: '#fff',
-    height: 60,
   },
 
-  iconText: {
-    fontSize: 22,
-    width: 30,
-    paddingHorizontal: 8,
-    textAlign: 'left',
-    marginRight: 4,
-  },
+  iconText: { fontSize: 22, width: 30, textAlign: 'left', marginRight: 4, paddingHorizontal: 8 },
+  headerTitleContainer: { flex: 1, alignItems: 'center' },
+  headerTitle: { fontSize: 17, fontWeight: '700' },
+  headerSubTitle: { fontSize: 12, color: '#8e8e8e', marginTop: 1 },
+  plusIcon: { fontSize: 22, width: 30, textAlign: 'right' },
 
-  headerTitleContainer: {
-    flex: 1,
-    alignItems: 'center',
-  },
+  /* Non-scrolling top section */
+  topSection: { paddingHorizontal: 16, paddingTop: 10 },
+  headerRow: { flexDirection: 'row', alignItems: 'center' },
 
-  headerTitle: {
-    fontSize: 17,
-    fontWeight: '700',
-  },
 
-  headerSubTitle: {
-    fontSize: 12,
-    color: '#8e8e8e',
-    marginTop: 1,
-  },
+  storyRingOuter: { width: 88, height: 88, borderRadius: 44, padding: 3, marginRight: 16 },
+  storyRingInner: { flex: 1, backgroundColor: '#fff', borderRadius: 41, padding: 3 },
+  profilePicture: { flex: 1, borderRadius: 38 },
 
-  plusIcon: {
-    fontSize: 22,
-    width: 30,
-    textAlign: 'right',
-  },
 
-  //Profile
-  profileHeader: {
-    paddingHorizontal: 16,
-    paddingTop: 8,
-  },
-  headerRow: { 
-    flexDirection: 'row', 
-    alignItems: 'center'},
+  infoRow: { flex: 1, flexDirection: 'row', justifyContent: 'space-around' },
+  infoItem: { alignItems: 'center' },
+  infoCount: { fontWeight: '700', fontSize: 18 },
+  infoLabel: { fontSize: 12, color: '#8e8e8e', marginTop: 2 },
 
-  storyRingOuter: { 
-    width: 88,
-    height: 88,
-    borderRadius: 44,
-    padding: 4, 
-    marginRight: 16 },
-  
-  storyRingInner: {
-    flex: 1,
-    backgroundColor: '#fff',
-    borderRadius: 41,
-    padding: 3,
-  },
 
-  profilePictureRing: {
-    alignSelf: 'flex-start',
-    width: 84,
-    height: 84,
-    borderRadius: 42,
-    padding: 3,
-    backgroundColor: '#eeeeeeff',
-  },
-
-  profilePicture: {
-    flex: 1,
-    borderRadius: 38,
-  },
-
-  infoRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '70%',
-    marginTop: 6,
-  },
-
-  infoItem: {
-    alignItems: 'center',
-  },
-
-  infoCount: {
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-
-  infoLabel: {
-    fontSize: 12,
-    color: '#8e8e8e',
-  },
-
-  bioSection: {
-    marginTop: 6,
-  },
-
-  groupName: {
-    fontWeight: 'bold',
-    fontSize: 14,
-  },
-
-  bioLine2: {
-    fontSize: 13,
-    marginTop: 2,
-  },
-
-  bioLine3: {
-    fontSize: 13,
-    marginTop: 2,
-  },
+  bioSection: { marginTop: 8 },
+  groupName: { fontWeight: '700', fontSize: 15 },
+  bioLine2: { fontSize: 13, marginTop: 2 },
+  bioLine3: { fontSize: 13, marginTop: 2 },
 
   memberButton: {
-    marginTop: 14,
-    marginHorizontal: 16,
+    marginTop: 10,
     height: 36,
     borderRadius: 6,
     borderWidth: 1,
@@ -304,44 +234,27 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#fff',
   },
+  memberButtonText: { fontSize: 14, fontWeight: '600' },
 
-  memberButtonText: {
-    fontSize: 14,
-    fontWeight: '600',
-  },
+  /* Grid-only scroll area */
+  gridScroll: { flex: 1, marginTop: 10 },
+  gridScrollContent: { paddingBottom: 90 },
 
-  grid: {
-    marginTop: 10,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    paddingHorizontal: 0,
-  },
+  /* Grid */
+  grid: { flexDirection: 'row', flexWrap: 'wrap' },
+  gridItem: { width: '33.3333%', padding: 1 },
+  gridImage: { width: '100%', aspectRatio: 1 },
 
-  gridItem: {
-    width: '33.3333%',
-    padding: 1.
-  },
-
-  gridImage: {
-    width: '100%',
-    aspectRatio: 1,
-  },
-
+  /* Alert */
   alertButton: {
+    marginHorizontal: 16,
     marginTop: 16,
+    marginBottom: 16,
     height: 44,
-    borderRadius: 0,
+    borderRadius: 8,
     backgroundColor: '#000',
-    justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
-    alignSelf: 'stretch',
+    justifyContent: 'center',
   },
-
-  alertButtonText: {
-    color: '#fff',
-    fontWeight: '700',
-  },
-
-  scrollContent: { paddingBottom: 24 },
+  alertButtonText: { color: '#fff', fontWeight: '700' },
 })
