@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   rightColumn: {
     flex: 1,
     justifyContent: 'center',
-    marginLeft: 30, // gives spacing between left and right
+    marginLeft: 30,
     marginTop: 10,
   },
 
