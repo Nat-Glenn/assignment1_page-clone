@@ -1,17 +1,17 @@
-import React from 'react'
-import { 
-  Alert, 
-  Image, 
-  Platform, 
-  StatusBar, 
-  StyleSheet, 
-  Text, 
-  TouchableOpacity, 
+import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
+import { LinearGradient } from 'expo-linear-gradient';
+import React from 'react';
+import {
+  Alert,
+  Image,
+  Platform,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
   View,
-  ScrollView, 
-} from 'react-native'
-  import { LinearGradient } from 'expo-linear-gradient'
-  import { Ionicons } from '@expo/vector-icons'
+} from 'react-native';
 
   type Post = {
     id: string;
@@ -89,22 +89,26 @@ const posts: Post[] = [
 const hair = StyleSheet.hairlineWidth
 
 const ProfilePage = () => {
-  const onAlert = () => Alert.alert('Alert Button pressed')
 
   const avatar = posts.find(p => p.id === '1')
   // Render twelve posts (4 rows) – change to .slice(0, 9) for 3×3, or remove slice to show all
   const gridPosts = posts.filter(p => p.id !== '1').slice(0, 12)
 
+  const onAlert = () =>
+  Platform.OS === 'web'
+    ? window.alert('Alert Button pressed')
+    : Alert.alert('Alert Button pressed');
+
   return (
     <View style={[styles.container, Platform.OS === 'web' && styles.webPhone]}>
       {/* Top Bar */}
       <View style={styles.header}>
-        <Text style={styles.iconText}>‹</Text>
+        <Feather name="chevron-left" size={26} color="#000" />
         <View style={styles.headerTitleContainer}>
           <Text style={styles.headerTitle}>Group Profile</Text>
           <Text style={styles.headerSubTitle}>ootd_everyday</Text>
         </View>
-        <Text style={styles.plusIcon}>＋</Text>
+        <Feather name="plus-square" size={24} color="#000" />
       </View>
 
       {/* Non scrolling sectionn*/}
@@ -161,11 +165,23 @@ const ProfilePage = () => {
           ))}
         </View>
 
+        
+      </ScrollView>
+      {/**Bottom Nav & Alert Button */}
+      <View style={styles.bottomArea}>
+        <View style={styles.bottomNav}>
+          <Feather name="home" size={26} color="#000" />
+          <Feather name="search" size={26} color="#000" />
+          <MaterialCommunityIcons name="movie-play-outline" size={26} color="#000" />
+          <Feather name="shopping-bag" size={26} color="#000" />
+          <Feather name="user" size={26} color="#000" />
+        </View>
+        
         {/* Alert */}
         <TouchableOpacity style={styles.alertButton} onPress={onAlert}>
           <Text style={styles.alertButtonText}>Alert</Text>
         </TouchableOpacity>
-      </ScrollView>
+      </View>
     </View>
   )
 }
@@ -193,8 +209,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 12,
-    borderBottomWidth: hair,
-    borderBottomColor: '#ddd',
+    borderBottomWidth: 0,
+    borderBottomColor: 'transparent',
   },
 
   iconText: { fontSize: 22, width: 30, textAlign: 'left', marginRight: 4, paddingHorizontal: 8 },
@@ -214,7 +230,7 @@ const styles = StyleSheet.create({
 
 
   infoRow: { flex: 1, flexDirection: 'row', justifyContent: 'space-around' },
-  infoItem: { alignItems: 'center' },
+  infoItem: { alignItems: 'center', marginHorizontal: 16},
   infoCount: { fontWeight: '700', fontSize: 18 },
   infoLabel: { fontSize: 12, color: '#8e8e8e', marginTop: 2 },
 
@@ -226,10 +242,10 @@ const styles = StyleSheet.create({
 
   memberButton: {
     marginTop: 10,
-    height: 36,
+    height: 30,
     borderRadius: 6,
-    borderWidth: 1,
-    borderColor: '#ddd',
+    borderWidth: 2,
+    borderColor: '#e0e0e0',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#fff',
@@ -244,6 +260,24 @@ const styles = StyleSheet.create({
   grid: { flexDirection: 'row', flexWrap: 'wrap' },
   gridItem: { width: '33.3333%', padding: 1 },
   gridImage: { width: '100%', aspectRatio: 1 },
+
+  /* Bottom Nav & Alert Button */
+  bottomArea: {
+  position: "absolute",
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backgroundColor: "#fff",
+  borderTopColor: "#e6e6e6",
+  borderTopWidth: StyleSheet.hairlineWidth,
+},
+bottomNav: {
+  height: 56,
+  paddingHorizontal: 22,
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "space-between",
+},
 
   /* Alert */
   alertButton: {
