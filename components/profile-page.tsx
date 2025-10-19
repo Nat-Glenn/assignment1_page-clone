@@ -112,14 +112,14 @@ const onAlert = () => Alert.alert("Alert was pressed! ")
         {/* Bio */}
         <View style={styles.bioSection}>
           <Text style={styles.groupName}>OOTD Everyday</Text>
-          <Text style={styles.bioLine2}>Fit check!</Text>
-          <Text style={styles.bioLine3}>You know we will hype you up</Text>
+          <Text style={styles.bioLine2}>Fit check!👕</Text>
+          <Text style={styles.bioLine3}>You know we will hype you up.</Text>
         </View>
       </View>
 
       {/* Member button */}
       <TouchableOpacity style={styles.memberButton}>
-        <Text style={styles.memberButtonText}>Member</Text>
+        <Text style={styles.memberButtonText}>Member⮟</Text>
       </TouchableOpacity>
       
     </View>
